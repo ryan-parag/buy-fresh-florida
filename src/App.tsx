@@ -8,7 +8,7 @@ import { CategoryTabs } from './components/CategoryTabs';
 import { SeasonDashboard } from './components/SeasonDashboard';
 import { ProduceCard } from './components/ProduceCard';
 import Logo from './components/Logo';
-import RyanLogo from './components/ryanLogo';
+import RyanLogo from './components/RyanLogo';
 
 export default function App() {
   const { theme, setTheme } = useTheme();
