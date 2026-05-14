@@ -28,7 +28,7 @@ export default function App() {
         <ThemeToggle theme={theme} setTheme={setTheme} />
       </div>
       <header className="max-w-4xl mx-auto px-4 sm:px-6 pt-20 pb-8">
-        <h1 className="text-2xl md:text-4xl font-extrabold text-zinc-900 dark:text-zinc-100">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-zinc-100">
           What's in season in Florida in
           <MonthSelect value={month} onChange={setMonth} />
           ?
@@ -94,7 +94,7 @@ export default function App() {
         )}
       </main>
 
-      <footer className="border-t border-zinc-200 dark:border-zinc-800 mt-16 py-6 text-center text-xs text-zinc-600 dark:text-zinc-400 flex items-center justify-between gap-1 px-4">
+      <footer className="border-t border-zinc-200 dark:border-zinc-800 mt-16 py-6 text-xs text-zinc-600 dark:text-zinc-400 flex items-center justify-between gap-1 px-4">
         <a href="https://www.fdacs.gov/consumer-resources/buy-fresh-from-florida/crops-in-season" className="hover:underline font-medium transition hover:text-zinc-950 dark:hover:text-white" target="_blank" rel="noopener noreferrer">
           Data sourced from FDACS · Florida Fresh Produce Guide
         </a>

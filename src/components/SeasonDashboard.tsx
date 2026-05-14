@@ -21,7 +21,7 @@ export function SeasonDashboard({ items, monthName }: SeasonDashboardProps) {
   return (
     <div className="rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-zinc-900 shadow-sm overflow-hidden">
       <button
-        className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-100 dark:hover:bg-white/5 w-full transition cursor-pointer"
+        className="flex items-center gap-2 px-4 py-2 hover:bg-zinc-100 dark:hover:bg-white/5 w-full transition cursor-pointer text-left"
         onClick={() => setOpen(!open)}
       >
         <div className="flex flex-1 items-center gap-2 w-full">
@@ -32,7 +32,7 @@ export function SeasonDashboard({ items, monthName }: SeasonDashboardProps) {
             </span>
             Peak Season in {monthName}
           </span>
-        <span className="text-sm text-zinc-500 dark:text-zinc-400">{items.length} items fresh right now</span>
+        <span className="text-sm text-zinc-500 dark:text-zinc-400">{items.length}<span className="pl-1 hidden md:inline">items fresh right now</span></span>
         </div>
         <div className={`inline-flex transition transform ${!open ? '-rotate-90' : ''}`}>
           <svg className="text-zinc-500" width="16" height="16" viewBox="0 0 12 12" fill="none" aria-hidden>
