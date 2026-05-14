@@ -94,7 +94,7 @@ export default function App() {
         )}
       </main>
 
-      <footer className="border-t border-zinc-200 dark:border-zinc-800 mt-16 py-6 text-xs text-zinc-600 dark:text-zinc-400 flex items-center justify-between gap-1 px-4">
+      <footer className="border-t border-zinc-200 dark:border-zinc-800 mt-16 py-6 text-xs text-zinc-600 dark:text-zinc-400 flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-2 md:gap-1 px-4">
         <a href="https://www.fdacs.gov/consumer-resources/buy-fresh-from-florida/crops-in-season" className="hover:underline font-medium transition hover:text-zinc-950 dark:hover:text-white" target="_blank" rel="noopener noreferrer">
           Data sourced from FDACS · Florida Fresh Produce Guide
         </a>
