@@ -19,7 +19,7 @@ export default function App() {
   const { inSeason, filtered } = useSeasonality({ month, category, search });
 
   return (
-    <div className="min-h-screen relative bg-white dark:bg-zinc-900 transition-colors duration-300">
+    <div className="min-h-screen relative bg-white dark:bg-zinc-950 transition-colors duration-300">
       {/* Header */}
       <div className="absolute top-4 left-4 w-10 h-10 rounded-xl border border-black/10 dark:border-white/10 shadow-sm overflow-hidden">
         <Logo />
@@ -28,7 +28,7 @@ export default function App() {
         <ThemeToggle theme={theme} setTheme={setTheme} />
       </div>
       <header className="max-w-4xl mx-auto px-4 sm:px-6 pt-20 pb-8">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-zinc-100">
+        <h1 className="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100">
           What's in season in Florida in
           <MonthSelect value={month} onChange={setMonth} />
           ?
@@ -71,7 +71,7 @@ export default function App() {
             <p className="text-sm">No produce found matching your search.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-0 overflow-hidden rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-zinc-900">
             {filtered
               .slice()
               .sort((a, b) => {
@@ -87,14 +87,14 @@ export default function App() {
                   inSeason={item.months[month]}
                 />
               ))}
-              <div className="bg-zinc-50 rounded-lg dark:bg-zinc-900 border border-black/5 dark:border-white/5 p-3 text-xs text-zinc-500 dark:text-zinc-400">
-                  Note: Weather conditions can affect the harvest schedule.
-              </div>
           </div>
         )}
+        <div className="bg-zinc-50 rounded-lg dark:bg-zinc-900 border border-black/5 dark:border-white/5 p-3 text-xs text-zinc-500 dark:text-zinc-400">
+            Note: Weather conditions can affect the harvest schedule.
+        </div>
       </main>
 
-      <footer className="border-t border-zinc-200 dark:border-zinc-800 mt-16 py-6 text-xs text-zinc-600 dark:text-zinc-400 flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-2 md:gap-1 px-4">
+      <footer className="border-t border-zinc-200 dark:border-zinc-800 mt-16 py-6 text-xs text-zinc-600 dark:text-zinc-400 flex flex-col items-center justify-between text-center gap-4 px-4">
         <a href="https://www.fdacs.gov/consumer-resources/buy-fresh-from-florida/crops-in-season" className="hover:underline font-medium transition hover:text-zinc-950 dark:hover:text-white" target="_blank" rel="noopener noreferrer">
           Data sourced from FDACS · Florida Fresh Produce Guide
         </a>

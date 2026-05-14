@@ -16,9 +16,9 @@ export function ProduceCard({ item, currentMonth, inSeason }: ProduceCardProps) 
   return (
     <div
       className={[
-        'group relative flex flex-col rounded-2xl border pb-2 pt-6 px-2 md:py-4 md:px-4 transition-all duration-200',
+        'group relative flex flex-col border-b pb-2 pt-6 px-2 md:py-4 md:px-4 transition-all duration-200',
         inSeason
-          ? 'bg-white dark:bg-zinc-800 border-zinc-200 dark:border-zinc-800 shadow-sm'
+          ? 'border-black/10 dark:border-white/10'
           : 'hidden',
       ].join(' ')}
       id={item.name.toLowerCase().replace(/\s/g, '-')}
@@ -46,14 +46,18 @@ export function ProduceCard({ item, currentMonth, inSeason }: ProduceCardProps) 
           <div className="flex md:hidden flex-col items-start mt-1">
             <button
               onClick={() => setShowDetails(!showDetails)}
-              className="text-xs underline text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white font-semibold cursor-pointer"
+              className="inline-flex items-center text-xs underline text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white font-semibold cursor-pointer"
             >
-              {showDetails ? 'Hide' : 'Show'} Details
+              In Season
+              <div className={`${!showDetails ? '-rotate-90' : ''} inline-block transition transform mt-0.5 ml-1`}>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+                  <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
             </button>
             {
               showDetails && (
-                <div className="flex flex-wrap gap-1 mt-1 items-center">
-                  <span className="text-[10px] text-zinc-600 dark:text-zinc-400">In season:</span>
+                <div className="flex flex-wrap gap-1 mt-2 items-center">
                   {
                     item.months.map((active, i) => (
                       active && (
