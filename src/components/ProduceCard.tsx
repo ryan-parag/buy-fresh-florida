@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { type ProduceItem } from '../data/produce';
 import { SeasonBar } from './SeasonBar';
 import { MONTHS_SHORT } from '../data/produce';
