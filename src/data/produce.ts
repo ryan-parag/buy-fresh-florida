@@ -1,18 +1,83 @@
 export type Category = 'Fruit' | 'Vegetable';
 
 export interface ProduceItem {
-  id: string;
+  id: ProduceId;
   name: string;
   category: Category;
   emoji: string;
   // months is a 12-element boolean array, index 0 = January
   months: boolean[];
-  description: string;
+  description?: string;
 }
+
+interface CatalogEntry {
+  name: string;
+  category: Category;
+  emoji: string;
+}
+
+// Shared produce catalog. Each state's data file references these ids and
+// supplies its own months (and optional description).
+export const CATALOG = {
+  // Fruit
+  apple: { name: 'Apples', category: 'Fruit', emoji: '🍎' },
+  apricot: { name: 'Apricots', category: 'Fruit', emoji: '🍑' },
+  avocado: { name: 'Avocados', category: 'Fruit', emoji: '🥑' },
+  blackberry: { name: 'Blackberries', category: 'Fruit', emoji: '🫐' },
+  blueberry: { name: 'Blueberries', category: 'Fruit', emoji: '🫐' },
+  cantaloupe: { name: 'Cantaloupe', category: 'Fruit', emoji: '🍈' },
+  cherry: { name: 'Cherries', category: 'Fruit', emoji: '🍒' },
+  grape: { name: 'Grapes', category: 'Fruit', emoji: '🍇' },
+  grapefruit: { name: 'Grapefruit', category: 'Fruit', emoji: '🍊' },
+  'honey-tangerine': { name: 'Honey Tangerines', category: 'Fruit', emoji: '🍊' },
+  honeydew: { name: 'Honeydew', category: 'Fruit', emoji: '🍈' },
+  kiwi: { name: 'Kiwifruit', category: 'Fruit', emoji: '🥝' },
+  lemon: { name: 'Lemons', category: 'Fruit', emoji: '🍋' },
+  mandarin: { name: 'Mandarins', category: 'Fruit', emoji: '🍊' },
+  mango: { name: 'Mangoes', category: 'Fruit', emoji: '🥭' },
+  nectarine: { name: 'Nectarines', category: 'Fruit', emoji: '🍑' },
+  orange: { name: 'Oranges', category: 'Fruit', emoji: '🍊' },
+  papaya: { name: 'Papayas', category: 'Fruit', emoji: '🍈' },
+  peach: { name: 'Peaches', category: 'Fruit', emoji: '🍑' },
+  pear: { name: 'Pears', category: 'Fruit', emoji: '🍐' },
+  plum: { name: 'Plums', category: 'Fruit', emoji: '🟣' },
+  raspberry: { name: 'Raspberries', category: 'Fruit', emoji: '🍓' },
+  strawberry: { name: 'Strawberries', category: 'Fruit', emoji: '🍓' },
+  watermelon: { name: 'Watermelons', category: 'Fruit', emoji: '🍉' },
+
+  // Vegetables
+  asparagus: { name: 'Asparagus', category: 'Vegetable', emoji: '🌱' },
+  'bell-pepper': { name: 'Bell Peppers', category: 'Vegetable', emoji: '🫑' },
+  broccoli: { name: 'Broccoli', category: 'Vegetable', emoji: '🥦' },
+  cabbage: { name: 'Cabbage', category: 'Vegetable', emoji: '🥬' },
+  carrot: { name: 'Carrots', category: 'Vegetable', emoji: '🥕' },
+  cauliflower: { name: 'Cauliflower', category: 'Vegetable', emoji: '🥦' },
+  collards: { name: 'Collard Greens', category: 'Vegetable', emoji: '🥬' },
+  cucumber: { name: 'Cucumbers', category: 'Vegetable', emoji: '🥒' },
+  eggplant: { name: 'Eggplant', category: 'Vegetable', emoji: '🍆' },
+  garlic: { name: 'Garlic', category: 'Vegetable', emoji: '🧄' },
+  'hot-pepper': { name: 'Hot Peppers', category: 'Vegetable', emoji: '🌶️' },
+  kale: { name: 'Kale', category: 'Vegetable', emoji: '🥬' },
+  lettuce: { name: 'Lettuce', category: 'Vegetable', emoji: '🥬' },
+  onion: { name: 'Onions', category: 'Vegetable', emoji: '🧅' },
+  peas: { name: 'Peas', category: 'Vegetable', emoji: '🫛' },
+  potato: { name: 'Potatoes', category: 'Vegetable', emoji: '🥔' },
+  pumpkin: { name: 'Pumpkins', category: 'Vegetable', emoji: '🎃' },
+  'snap-bean': { name: 'Snap Beans', category: 'Vegetable', emoji: '🫘' },
+  spinach: { name: 'Spinach', category: 'Vegetable', emoji: '🥬' },
+  squash: { name: 'Squash', category: 'Vegetable', emoji: '🎃' },
+  'summer-squash': { name: 'Summer Squash', category: 'Vegetable', emoji: '🥒' },
+  'sweet-corn': { name: 'Sweet Corn', category: 'Vegetable', emoji: '🌽' },
+  'sweet-potato': { name: 'Sweet Potatoes', category: 'Vegetable', emoji: '🍠' },
+  tomato: { name: 'Tomatoes', category: 'Vegetable', emoji: '🍅' },
+  'winter-squash': { name: 'Winter Squash', category: 'Vegetable', emoji: '🎃' },
+} as const satisfies Record<string, CatalogEntry>;
+
+export type ProduceId = keyof typeof CATALOG;
 
 // Helper: build months array from 1-based month ranges (inclusive)
 // Supports multiple ranges for split seasons
-function season(...ranges: [number, number][]): boolean[] {
+export function season(...ranges: [number, number][]): boolean[] {
   const arr = Array(12).fill(false);
   for (const [start, end] of ranges) {
     if (start <= end) {
@@ -26,168 +91,7 @@ function season(...ranges: [number, number][]): boolean[] {
   return arr;
 }
 
-export const PRODUCE: ProduceItem[] = [
-  {
-    id: 'avocado',
-    name: 'Avocados',
-    category: 'Fruit',
-    emoji: '🥑',
-    months: season([6, 1]),
-    description: 'Florida avocados are larger and creamier than their California cousins.',
-  },
-  {
-    id: 'blueberry',
-    name: 'Blueberries',
-    category: 'Fruit',
-    emoji: '🫐',
-    months: season([3, 5]),
-    description: 'Florida blueberries arrive earlier than most U.S. states — a true spring treat.',
-  },
-  {
-    id: 'cabbage',
-    name: 'Cabbage',
-    category: 'Vegetable',
-    emoji: '🥬',
-    months: season([12, 6]),
-    description: 'Florida cabbage thrives in the mild winter and spring months.',
-  },
-  {
-    id: 'carrot',
-    name: 'Carrots',
-    category: 'Vegetable',
-    emoji: '🥕',
-    months: season([12, 5]),
-    description: 'Sweet and crisp, Florida winter carrots are harvested from December through May.',
-  },
-  {
-    id: 'sweet-corn',
-    name: 'Sweet Corn',
-    category: 'Vegetable',
-    emoji: '🌽',
-    months: season([10, 6]),
-    description: 'Florida supplies most of the U.S. winter sweet corn.',
-  },
-  {
-    id: 'grapefruit',
-    name: 'Grapefruit',
-    category: 'Fruit',
-    emoji: '🍊',
-    months: season([9, 6]),
-    description: 'Florida grows the majority of U.S. grapefruit, harvested fall through early summer.',
-  },
-  {
-    id: 'orange',
-    name: 'Oranges',
-    category: 'Fruit',
-    emoji: '🍊',
-    months: season([10, 6]),
-    description: 'Florida\'s iconic crop — Valencia and Navel oranges anchor the citrus season.',
-  },
-  {
-    id: 'peach',
-    name: 'Peaches',
-    category: 'Fruit',
-    emoji: '🍑',
-    months: season([4, 5]),
-    description: 'Florida peaches ripen fast and early — blink and the season\'s gone.',
-  },
-  {
-    id: 'strawberry',
-    name: 'Strawberries',
-    category: 'Fruit',
-    emoji: '🍓',
-    months: season([12, 4]),
-    description: 'Plant City is the Winter Strawberry Capital of the World.',
-  },
-  {
-    id: 'tomato',
-    name: 'Tomatoes',
-    category: 'Vegetable',
-    emoji: '🍅',
-    months: season([10, 6]),
-    description: 'Florida is one of the top tomato-producing states, especially in winter.',
-  },
-  {
-    id: 'watermelon',
-    name: 'Watermelons',
-    category: 'Fruit',
-    emoji: '🍉',
-    months: season([4, 7], [10, 11]),
-    description: 'Florida produces two watermelon crops — spring/summer and a fall harvest.',
-  },
-  {
-    id: 'bell-pepper',
-    name: 'Bell Peppers',
-    category: 'Vegetable',
-    emoji: '🫑',
-    months: season([10, 6]),
-    description: 'Florida\'s warm winters make it a top U.S. bell pepper supplier.',
-  },
-  {
-    id: 'cucumber',
-    name: 'Cucumbers',
-    category: 'Vegetable',
-    emoji: '🥒',
-    months: season([10, 6]),
-    description: 'Florida cucumbers are harvested from fall through late spring.',
-  },
-  {
-    id: 'eggplant',
-    name: 'Eggplant',
-    category: 'Vegetable',
-    emoji: '🍆',
-    months: season([11, 6]),
-    description: 'Glossy Florida eggplants peak in winter and spring.',
-  },
-  {
-    id: 'snap-bean',
-    name: 'Snap Beans',
-    category: 'Vegetable',
-    emoji: '🫘',
-    months: season([10, 5]),
-    description: 'Also called green beans — Florida snap beans are a winter staple.',
-  },
-  {
-    id: 'squash',
-    name: 'Squash',
-    category: 'Vegetable',
-    emoji: '🎃',
-    months: season([3, 6], [9, 11]),
-    description: 'Florida grows both summer squash and specialty winter varieties.',
-  },
-  {
-    id: 'honey-tangerine',
-    name: 'Honey Tangerines',
-    category: 'Fruit',
-    emoji: '🍊',
-    months: season([3, 4]),
-    description: 'Murcott honey tangerines are Florida\'s sweetest citrus, available in spring.',
-  },
-  {
-    id: 'lemon',
-    name: 'Lemons',
-    category: 'Fruit',
-    emoji: '🍋',
-    months: season([9, 5]),
-    description: 'Florida lemons are available from fall through late spring.',
-  },
-  {
-    id: 'mango',
-    name: 'Mangoes',
-    category: 'Fruit',
-    emoji: '🥭',
-    months: season([5, 9]),
-    description: 'South Florida grows hundreds of mango varieties in its tropical climate.',
-  },
-  {
-    id: 'papaya',
-    name: 'Papayas',
-    category: 'Fruit',
-    emoji: '🍈',
-    months: season([5, 11]),
-    description: 'Florida\'s tropical south allows papaya to grow nearly year-round.',
-  },
-];
+export const YEAR_ROUND = season([1, 12]);
 
 export const CATEGORIES: Category[] = ['Fruit', 'Vegetable'];
 

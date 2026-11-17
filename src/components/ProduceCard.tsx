@@ -40,9 +40,11 @@ export function ProduceCard({ item, currentMonth, inSeason }: ProduceCardProps) 
           <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm leading-tight">
             {item.name}
           </h3>
-          <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
-            {item.description}
-          </p>
+          {item.description && (
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1">
+              {item.description}
+            </p>
+          )}
           <div className="flex md:hidden flex-col items-start mt-1">
             <button
               onClick={() => setShowDetails(!showDetails)}

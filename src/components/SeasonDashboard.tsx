@@ -8,6 +8,8 @@ interface SeasonDashboardProps {
 }
 
 export function SeasonDashboard({ items, monthName }: SeasonDashboardProps) {
+  const [open, setOpen] = useState(false);
+
   if (items.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-700 p-6 text-center text-zinc-500 dark:text-zinc-400 text-sm">
@@ -15,8 +17,6 @@ export function SeasonDashboard({ items, monthName }: SeasonDashboardProps) {
       </div>
     );
   }
-
-  const [open, setOpen] = useState(false);
 
   return (
     <div className="rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-zinc-900 shadow-sm overflow-hidden">

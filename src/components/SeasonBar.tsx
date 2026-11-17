@@ -7,8 +7,6 @@ interface SeasonBarProps {
 }
 
 export function SeasonBar({ months, currentMonth }: SeasonBarProps) {
-
-  console.log(months)
   return (
     <div className="flex gap-1 w-full mt-3">
       {months.map((active, i) => (

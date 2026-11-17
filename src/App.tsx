@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MONTHS, type Category } from './data/produce';
 import { useSeasonality } from './hooks/useSeasonality';
 import { useTheme } from './hooks/useTheme';
 import { MonthSelect } from './components/MonthSelect';
+import { StateSelect } from './components/StateSelect';
+import { DEFAULT_STATE, getState } from './data/states';
 import { ThemeToggle } from './components/ThemeToggle';
 import { CategoryTabs } from './components/CategoryTabs';
 import { SeasonDashboard } from './components/SeasonDashboard';
@@ -10,13 +12,28 @@ import { ProduceCard } from './components/ProduceCard';
 import Logo from './components/Logo';
 import RyanLogo from './components/RyanLogo';
 
+function initialStateCode(): string {
+  const param = new URLSearchParams(window.location.search).get('state');
+  return param ? getState(param).code : DEFAULT_STATE;
+}
+
 export default function App() {
   const { theme, setTheme } = useTheme();
   const [month, setMonth] = useState(() => new Date().getMonth());
   const [category, setCategory] = useState<Category | 'All'>('All');
   const [search, setSearch] = useState('');
+  const [stateCode, setStateCode] = useState(initialStateCode);
+  const state = getState(stateCode);
 
-  const { inSeason, filtered } = useSeasonality({ month, category, search });
+  // Keep the selected state in the URL so links are shareable
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (stateCode === DEFAULT_STATE) url.searchParams.delete('state');
+    else url.searchParams.set('state', stateCode);
+    window.history.replaceState(null, '', url);
+  }, [stateCode]);
+
+  const { inSeason, filtered } = useSeasonality({ stateCode, month, category, search });
 
   return (
     <div className="min-h-screen relative bg-white dark:bg-zinc-950 transition-colors duration-300">
@@ -29,7 +46,9 @@ export default function App() {
       </div>
       <header className="max-w-4xl mx-auto px-4 sm:px-6 pt-20 pb-8">
         <h1 className="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100">
-          What's in season in Florida in
+          What's in season in
+          <StateSelect value={stateCode} onChange={setStateCode} />
+          in
           <MonthSelect value={month} onChange={setMonth} />
           ?
         </h1>
@@ -95,8 +114,8 @@ export default function App() {
       </main>
 
       <footer className="border-t border-zinc-200 dark:border-zinc-800 mt-16 py-6 text-xs text-zinc-600 dark:text-zinc-400 flex flex-col items-center justify-between text-center gap-4 px-4">
-        <a href="https://www.fdacs.gov/consumer-resources/buy-fresh-from-florida/crops-in-season" className="hover:underline font-medium transition hover:text-zinc-950 dark:hover:text-white" target="_blank" rel="noopener noreferrer">
-          Data sourced from FDACS · Florida Fresh Produce Guide
+        <a href={state.source.url} className="hover:underline font-medium transition hover:text-zinc-950 dark:hover:text-white" target="_blank" rel="noopener noreferrer">
+          Data sourced from {state.source.label}
         </a>
         <a href="https://ryanparag.com" className="hover:underline inline-flex items-center font-medium transition hover:text-zinc-950 dark:hover:text-white" target="_blank" rel="noopener noreferrer">
           <div className="w-4 h-4 mr-1">

@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
-import { PRODUCE, type Category, type ProduceItem } from '../data/produce';
+import { type Category, type ProduceItem } from '../data/produce';
+import { getStateProduce } from '../data/states';
 
 interface UseSeasonalityOptions {
+  stateCode: string;
   month: number; // 0-based (0 = January)
   category: Category | 'All';
   search: string;
@@ -14,11 +16,11 @@ interface SeasonalityResult {
   peakCount: number;
 }
 
-export function useSeasonality({ month, category, search }: UseSeasonalityOptions): SeasonalityResult {
+export function useSeasonality({ stateCode, month, category, search }: UseSeasonalityOptions): SeasonalityResult {
   return useMemo(() => {
     const q = search.toLowerCase().trim();
 
-    const filtered = PRODUCE.filter((item) => {
+    const filtered = getStateProduce(stateCode).filter((item) => {
       const matchesCategory = category === 'All' || item.category === category;
       const matchesSearch = q === '' || item.name.toLowerCase().includes(q) || item.category.toLowerCase().includes(q);
       return matchesCategory && matchesSearch;
@@ -33,5 +35,5 @@ export function useSeasonality({ month, category, search }: UseSeasonalityOption
       filtered,
       peakCount: inSeason.length,
     };
-  }, [month, category, search]);
+  }, [stateCode, month, category, search]);
 }

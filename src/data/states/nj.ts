@@ -1,0 +1,46 @@
+import { season } from '../produce';
+import type { StateData } from './types';
+
+// Source: NJ Department of Agriculture, "NJ Seasonality Chart" (Jersey Fresh).
+export const newJersey: StateData = {
+  code: 'nj',
+  name: 'New Jersey',
+  source: {
+    label: 'NJ Department of Agriculture · Jersey Fresh Seasonality Chart',
+    url: 'https://www.nj.gov/agriculture/divisions/fn/pdf/njseasonalitychart.pdf',
+  },
+  produce: [
+    { id: 'apple', months: season([7, 12]) },
+    { id: 'blackberry', months: season([7, 8]) },
+    { id: 'blueberry', months: season([6, 7]), description: 'New Jersey is where the cultivated highbush blueberry was first developed.' },
+    { id: 'cherry', months: season([6, 6]) },
+    { id: 'grape', months: season([8, 9]) },
+    { id: 'peach', months: season([7, 9]) },
+    { id: 'nectarine', months: season([7, 9]) },
+    { id: 'pear', months: season([8, 8]) },
+    { id: 'plum', months: season([7, 9]) },
+    { id: 'strawberry', months: season([5, 6]) },
+    { id: 'asparagus', months: season([4, 6]) },
+    { id: 'snap-bean', months: season([6, 10]) },
+    { id: 'broccoli', months: season([6, 6], [10, 11]) },
+    { id: 'cabbage', months: season([6, 11]) },
+    { id: 'carrot', months: season([6, 11]) },
+    { id: 'cauliflower', months: season([9, 11]) },
+    { id: 'collards', months: season([5, 11]) },
+    { id: 'cucumber', months: season([7, 9]) },
+    { id: 'eggplant', months: season([7, 10]) },
+    { id: 'garlic', months: season([7, 12]) },
+    { id: 'kale', months: season([4, 6], [9, 11]) },
+    { id: 'lettuce', months: season([4, 6], [9, 11]) },
+    { id: 'onion', months: season([7, 10]) },
+    { id: 'peas', months: season([5, 7]) },
+    { id: 'bell-pepper', months: season([7, 10]) },
+    { id: 'potato', months: season([7, 12]) },
+    { id: 'pumpkin', months: season([9, 11]) },
+    { id: 'spinach', months: season([4, 6], [10, 11]) },
+    { id: 'summer-squash', months: season([6, 9]) },
+    { id: 'winter-squash', months: season([8, 12]) },
+    { id: 'sweet-corn', months: season([7, 10]) },
+    { id: 'tomato', months: season([7, 10]), description: 'The Jersey tomato — peak summer eating from July into fall.' },
+  ],
+};
